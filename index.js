@@ -19,6 +19,18 @@ app.use(cors());
 // Routes
 require('./routes/userRoutes')(app);
 
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => console.log(`Listening at port: ${PORT}`));
+
+
+
+
+
+
+
+/****************  DISREGARD IT IS ROUTES FOR THIS FILE AND NOT IMPORTED FOR REFERENC */
+
 /*
 const UserSchema = new Schema({
   lastname: String,
@@ -84,7 +96,3 @@ app.delete('/api/person/:id', async (req, res, next) => {
   }
 })
 */
-
-const PORT = process.env.PORT || 3000
-
-app.listen(PORT, () => console.log(`Listening at port: ${PORT}`));

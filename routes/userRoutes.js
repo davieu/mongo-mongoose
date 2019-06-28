@@ -16,21 +16,21 @@ module.exports = app => {
 
   // Create user
   app.post('/api/user', async (req, res, next) => {
-    let person = new User(req.body);
+    let createdUser = new User(req.body);
     try {
-      let result = await person.save()
+      let result = await createdUser.save()
       return res.send(result);
 
     } catch (err) {
       let usernameNotUnique = null;
       let allUsers = await getAllUsers();
       //looks through the DB and looks for an identical username. Then flags it.
-      allUsers.forEach(t => {
-        if (t.username === person.username) usernameNotUnique = true})
+      allUsers.forEach(dbUser => {
+        if (dbUser.username === createdUser.username) usernameNotUnique = true})
       // if userNameNotUnique is true then the first if block will run
       if (usernameNotUnique) {
         return res.status(400).send({
-          msg:`Unable to create user. Username: ${person.username} is already in use.`,err})
+          msg:`Unable to create user. Username: ${createdUser.username} is already in use.`,err})
       } else {
         return res.status(400).send({
           msg:'Unable to create user please check if required fields are entered.',err})
@@ -63,4 +63,18 @@ module.exports = app => {
       })
     }
   });
+
+  // Delete user by ID
+  app.delete('/api/user/:id', async (req, res, next) => {
+    try {
+      let userDeleted = await User.findById(req.params.id).exec();
+      let result = await User.deleteOne({_id: req.params.id}).exec();
+      res.send({userDeleted, result})
+    } catch (err) {
+      res.status(404).send({
+        msg: 'User not found',
+        err
+      })
+    }
+  })
 }
