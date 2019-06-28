@@ -16,18 +16,14 @@ module.exports = app => {
 
   // Create user
   app.post('/api/user', async (req, res, next) => {
+    let person = new User(req.body);
     try {
-      let person = new User(req.body);
       let result = await person.save()
       return res.send(result);
 
     } catch (err) {
       let usernameNotUnique = null;
-
-      let person = new User(req.body);
-      // let allUsers = await User.find().exec();
       let allUsers = await getAllUsers();
-
       //looks through the DB and looks for an identical username. Then flags it.
       allUsers.forEach(t => {
         if (t.username === person.username) usernameNotUnique = true})
@@ -40,7 +36,7 @@ module.exports = app => {
           msg:'Unable to create user please check if required fields are entered.',err})
       }
     }
-  })
+  });
 
   // Get all users
   app.get('/api/users', async (req, res, next) => {
@@ -48,18 +44,23 @@ module.exports = app => {
       let result = await User.find().exec();
       res.send(result)
     } catch (err) {
-      return res.status(400).send({
+      return res.status(404).send({
         msg: 'Unable to get all users',
-        err}) 
+        err
+      }) 
     }
-  })
+  });
 
   // Get user by ID
-  // app.get('/api/user/:id', async (req, res, next) => {
-  //   try {
-
-  //   } catch (err) {
-  //     res.status(400)
-  //   }
-  // })
+  app.get('/api/user/:id', async (req, res, next) => {
+    try {
+      let result = await User.findById(req.params.id).exec()
+      res.send(result)
+    } catch (err) {
+      res.status(404).send({
+        msg: 'User not found',
+        err
+      })
+    }
+  });
 }
