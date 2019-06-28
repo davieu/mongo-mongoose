@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const keys = require('./config/keys')
-const { Schema } = mongoose;
 
 const app = express();
 
@@ -32,6 +31,8 @@ app.listen(PORT, () => console.log(`Listening at port: ${PORT}`));
 /****************  DISREGARD IT IS ROUTES FOR THIS FILE AND NOT IMPORTED FOR REFERENC */
 
 /*
+const { Schema } = mongoose;
+
 const UserSchema = new Schema({
   lastname: String,
   firstname: String
