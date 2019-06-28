@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const keys = require('./config/keys')
 const { Schema } = mongoose;
 
 const app = express();
 
 //local 
 // mongoose.connect('mongodb://localhost/testTUT', {useNewUrlParser: true})
-mongoose.connect('mongodb+srv://davieu101:davieu101@cluster0-vgyon.mongodb.net/people?retryWrites=true&w=majority', {useNewUrlParser: true})
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true})
 
 // async function loadCollection() {
 //   const client = await mongoose.connect('mongodb+srv://davieu101:davieu101@cluster0-vgyon.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true})
