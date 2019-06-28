@@ -9,12 +9,17 @@ const app = express();
 // my local db
 // mongoose.connect('mongodb://localhost/testTUT', {useNewUrlParser: true})
 // connected to mongodbAtlas
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true})
+//useCreateIndex: true is for a depraction warning for using unique in the schema
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useCreateIndex: true})
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
+// Routes
+require('./routes/userRoutes')(app);
+
+/*
 const UserSchema = new Schema({
   lastname: String,
   firstname: String
@@ -78,6 +83,7 @@ app.delete('/api/person/:id', async (req, res, next) => {
     res.status(500).send(err);
   }
 })
+*/
 
 const PORT = process.env.PORT || 3000
 
