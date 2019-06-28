@@ -1,8 +1,8 @@
 Just a simple express/mongo and mongoose app. It is connected with mongodb atlas. change the connection string to yours if you want it to work. Uses async/await!
 
 to use:
-git clone this repo
-npm install
+git clone this repo,
+npm install,
 make a dev.js file in the config folder. Put your connection string in there like so EX:
 module.exports = {
   mongoURI: 'mongodb+srv://ddfdfssf:dsfsdfd@cluster0-vgyon.mongodb.net/people?retryWrites=true&w=majority'
