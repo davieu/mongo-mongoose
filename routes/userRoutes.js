@@ -64,6 +64,24 @@ module.exports = app => {
     }
   });
 
+  // Update user by ID
+  app.put('/api/user/:id', async (req, res, next) => {
+    try {
+      let person = await User.findById(req.params.id).exec();
+      //anything that appears in the req.body obj replace it in the person obj that was retrieved
+      person.set(req.body);
+      let result = await person.save();
+      res.send({
+        result
+      });
+    } catch(err) {
+      res.status(404).send({
+        msg: 'Unable to update your account please try again.',
+        err
+      });
+    }
+  })
+
   // Delete user by ID
   app.delete('/api/user/:id', async (req, res, next) => {
     try {
