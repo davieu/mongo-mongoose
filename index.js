@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const keys = require('./config/keys')
+const keys = require('./config/keys');
 
 const app = express();
 
@@ -9,7 +9,7 @@ const app = express();
 // mongoose.connect('mongodb://localhost/testTUT', {useNewUrlParser: true})
 // connected to mongodbAtlas
 //useCreateIndex: true is for a depraction warning for using unique in the schema
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useCreateIndex: true})
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useCreateIndex: true});
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
